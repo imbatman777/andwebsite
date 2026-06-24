@@ -27,35 +27,19 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.3 }}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/97 backdrop-blur-xl shadow-[0_1px_20px_rgba(0,0,0,0.08)] py-3'
-          : 'py-5'
+          ? 'bg-black/90 backdrop-blur-2xl shadow-[0_1px_30px_rgba(0,0,0,0.3)] py-3'
+          : 'bg-transparent py-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          to="hero"
-          smooth={true}
-          duration={600}
-          className="flex items-center gap-2.5 cursor-pointer"
-        >
-          <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-black text-sm">
-            A
-          </div>
-          <span className={`text-xl font-extrabold tracking-tight transition-colors duration-300 ${
-            scrolled ? 'text-dark' : 'text-white'
-          }`}>
-            AND<span className="text-primary">Events</span>
-          </span>
-        </Link>
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-center">
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* Desktop Menu — centered, larger, elegant */}
+        <div className="hidden md:flex items-center gap-0.5">
           {navItems.map((item) => (
             <Link
               key={item.to}
@@ -64,47 +48,39 @@ export default function Navbar() {
               smooth={true}
               offset={-80}
               duration={600}
-              activeClass="!text-primary !bg-primary/6"
-              className={`px-4 py-2 text-sm font-medium rounded-lg cursor-pointer transition-all duration-300 ${
+              activeClass="!text-white after:!scale-x-100"
+              className={`relative px-5 py-2.5 text-[0.85rem] tracking-[0.12em] uppercase font-medium cursor-pointer transition-all duration-300 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-5 after:h-[1.5px] after:bg-primary after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100 ${
                 scrolled
-                  ? 'text-muted hover:text-primary hover:bg-primary/6'
-                  : 'text-white/85 hover:text-white hover:bg-white/10'
+                  ? 'text-white/60 hover:text-white'
+                  : 'text-white/50 hover:text-white'
               }`}
             >
               {item.label}
             </Link>
           ))}
-          <Link
-            to="contact"
-            smooth={true}
-            offset={-80}
-            duration={600}
-            className="ml-2 px-6 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg cursor-pointer hover:bg-primary-dark transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_15px_rgba(160,0,0,0.3)]"
-          >
-            Get In Touch
-          </Link>
+
         </div>
 
         {/* Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden flex flex-col gap-[5px] p-1 z-[1001]"
+          className="md:hidden flex flex-col gap-[6px] p-1.5 z-[1001] ml-auto"
           aria-label="Toggle menu"
         >
-          <span className={`w-6 h-[2px] rounded-full transition-all duration-300 ${
+          <span className={`w-7 h-[1.5px] rounded-full transition-all duration-300 ${
             mobileOpen
-              ? 'rotate-45 translate-y-[7px] bg-dark'
-              : scrolled ? 'bg-dark' : 'bg-white'
+              ? 'rotate-45 translate-y-[7.5px] bg-dark'
+              : 'bg-white'
           }`} />
-          <span className={`w-6 h-[2px] rounded-full transition-all duration-300 ${
+          <span className={`w-7 h-[1.5px] rounded-full transition-all duration-300 ${
             mobileOpen
               ? 'opacity-0'
-              : scrolled ? 'bg-dark' : 'bg-white'
+              : 'bg-white'
           }`} />
-          <span className={`w-6 h-[2px] rounded-full transition-all duration-300 ${
+          <span className={`w-7 h-[1.5px] rounded-full transition-all duration-300 ${
             mobileOpen
-              ? '-rotate-45 -translate-y-[7px] bg-dark'
-              : scrolled ? 'bg-dark' : 'bg-white'
+              ? '-rotate-45 -translate-y-[7.5px] bg-dark'
+              : 'bg-white'
           }`} />
         </button>
       </div>
@@ -117,7 +93,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 z-[999]"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[999]"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -125,7 +101,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 w-72 h-screen bg-white z-[1000] shadow-[-10px_0_40px_rgba(0,0,0,0.1)] flex flex-col pt-24 px-8 gap-1"
+              className="fixed top-0 right-0 w-80 h-screen bg-[#111] z-[1000] shadow-[-10px_0_50px_rgba(0,0,0,0.5)] flex flex-col pt-24 px-8 gap-1"
             >
               {navItems.map((item, i) => (
                 <motion.div
@@ -140,31 +116,15 @@ export default function Navbar() {
                     smooth={true}
                     offset={-80}
                     duration={600}
-                    activeClass="!text-primary !bg-primary/6"
-                    className="block px-4 py-3.5 text-base font-medium text-muted hover:text-primary hover:bg-primary/6 rounded-lg cursor-pointer transition-all"
+                    activeClass="!text-primary"
+                    className="block px-4 py-4 text-[0.95rem] tracking-[0.1em] uppercase font-medium text-white/50 hover:text-white hover:pl-6 cursor-pointer transition-all duration-300 border-b border-white/5"
                     onClick={() => setMobileOpen(false)}
                   >
                     {item.label}
                   </Link>
                 </motion.div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.25 }}
-                className="mt-2"
-              >
-                <Link
-                  to="contact"
-                  smooth={true}
-                  offset={-80}
-                  duration={600}
-                  className="block px-6 py-3.5 bg-primary text-white text-center text-sm font-semibold rounded-lg cursor-pointer hover:bg-primary-dark transition-all"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Get In Touch
-                </Link>
-              </motion.div>
+
             </motion.div>
           </>
         )}
