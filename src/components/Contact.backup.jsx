@@ -1,6 +1,5 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import Prism from './Prism'
 
 export default function Contact() {
   const headerRef = useRef(null)
@@ -42,28 +41,8 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
-      {/* Prism WebGL Background */}
-      <div className="absolute inset-0 z-0">
-        <Prism
-          height={3.5}
-          baseWidth={5.5}
-          animationType="rotate"
-          glow={0.4}
-          noise={0.05}
-          transparent={false}
-          scale={5.0}
-          hueShift={-0.5}
-          colorFrequency={0.6}
-          bloom={0.5}
-          timeScale={0.45}
-          suspendWhenOffscreen={true}
-        />
-      </div>
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 z-[1] bg-black/40" />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-[2]">
+    <section id="contact" className="py-20 bg-light-bg">
+      <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div
           ref={headerRef}
@@ -72,10 +51,10 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="font-serif text-[clamp(2rem,4vw,2.8rem)] font-bold text-white mb-4 tracking-tight drop-shadow-lg">
+          <h2 className="font-serif text-[clamp(2rem,4vw,2.8rem)] font-bold text-dark mb-4 tracking-tight">
             Let's Create Something Extraordinary
           </h2>
-          <p className="text-lg text-white/70 max-w-xl mx-auto font-light">
+          <p className="text-lg text-muted max-w-xl mx-auto font-light">
             Ready to bring your vision to life? Reach out and let's start planning.
           </p>
           <div className="w-14 h-[3px] bg-primary rounded-full mx-auto mt-5" />
@@ -88,7 +67,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: -30 }}
             animate={headerInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3)] min-h-[460px]"
+            className="rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] min-h-[460px]"
           >
             <iframe
               title="AND Events Management LLC Location"
@@ -108,7 +87,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 30 }}
             animate={headerInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-white/95 backdrop-blur-sm p-7 md:p-9 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex flex-col justify-center"
+            className="bg-white p-7 md:p-9 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] flex flex-col justify-center"
           >
             <h3 className="font-serif text-2xl font-semibold text-dark mb-2 text-center">
               Send an Inquiry
@@ -217,7 +196,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.4 }}
-            className="flex items-center gap-4 p-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.2)] hover:bg-white/20 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
+            className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
           >
             <div className="w-11 h-11 min-w-11 bg-gradient-to-br from-[#25D366] to-[#128C7E] rounded-lg flex items-center justify-center text-white">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -225,10 +204,10 @@ export default function Contact() {
               </svg>
             </div>
             <div>
-              <h4 className="text-xs font-semibold text-white/60 uppercase tracking-widest mb-1">
+              <h4 className="text-xs font-semibold text-light-text uppercase tracking-widest mb-1">
                 WhatsApp
               </h4>
-              <p className="text-[0.95rem] text-white font-medium">+971 55 722 3260</p>
+              <p className="text-[0.95rem] text-dark font-medium">+971 55 722 3260</p>
             </div>
           </motion.a>
 
@@ -238,7 +217,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.5 }}
-            className="flex items-center gap-4 p-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.2)] hover:bg-white/20 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
+            className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
           >
             <div className="w-11 h-11 min-w-11 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -246,10 +225,10 @@ export default function Contact() {
               </svg>
             </div>
             <div>
-              <h4 className="text-xs font-semibold text-white/60 uppercase tracking-widest mb-1">
+              <h4 className="text-xs font-semibold text-light-text uppercase tracking-widest mb-1">
                 Email
               </h4>
-              <p className="text-[0.95rem] text-white font-medium">admin@andevents.org</p>
+              <p className="text-[0.95rem] text-dark font-medium">admin@andevents.org</p>
             </div>
           </motion.a>
 
@@ -261,7 +240,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.6 }}
-            className="flex items-center gap-4 p-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.2)] hover:bg-white/20 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
+            className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-300 no-underline"
           >
             <div className="w-11 h-11 min-w-11 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -269,10 +248,10 @@ export default function Contact() {
               </svg>
             </div>
             <div>
-              <h4 className="text-xs font-semibold text-white/60 uppercase tracking-widest mb-1">
+              <h4 className="text-xs font-semibold text-light-text uppercase tracking-widest mb-1">
                 Office Address
               </h4>
-              <p className="text-[0.95rem] text-white font-medium">Business Bay, Dubai, UAE</p>
+              <p className="text-[0.95rem] text-dark font-medium">Business Bay, Dubai, UAE</p>
             </div>
           </motion.a>
         </div>

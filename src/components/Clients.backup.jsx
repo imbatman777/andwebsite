@@ -1,6 +1,5 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { LogoLoop } from './LogoLoop'
 
 const clients = [
   { name: 'Emirates', initials: 'EK' },
@@ -13,21 +12,27 @@ const clients = [
   { name: 'ADNOC', initials: 'AD' },
 ]
 
-// Convert clients into LogoLoop-compatible items using `node` for custom rendered content
-const logoItems = clients.map(client => ({
-  node: (
-    <div className="flex flex-col items-center gap-3 px-2">
-      <div className="w-20 h-20 flex items-center justify-center text-2xl font-extrabold text-light-text bg-light-bg rounded-xl tracking-tight transition-all duration-300 hover:text-primary hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+function ClientCard({ client, index }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-40px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay: index * 0.07, ease: 'easeOut' }}
+      className="group flex flex-col items-center justify-center p-10 bg-light-bg rounded-xl hover:bg-white hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 cursor-pointer text-center gap-4"
+    >
+      <div className="w-20 h-20 flex items-center justify-center text-2xl font-extrabold text-light-text bg-white rounded-xl transition-all duration-300 tracking-tight group-hover:text-primary group-hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
         {client.initials}
       </div>
-      <span className="text-sm font-semibold text-muted whitespace-nowrap">
+      <h4 className="text-sm font-semibold text-muted group-hover:text-dark transition-colors duration-300">
         {client.name}
-      </span>
-    </div>
-  ),
-  ariaLabel: client.name,
-  title: client.name,
-}))
+      </h4>
+    </motion.div>
+  )
+}
 
 export default function Clients() {
   const headerRef = useRef(null)
@@ -53,19 +58,12 @@ export default function Clients() {
           <div className="w-14 h-[3px] bg-primary rounded-full mx-auto mt-5" />
         </motion.div>
 
-        {/* Auto-scrolling Logo Loop */}
-        <LogoLoop
-          logos={logoItems}
-          speed={60}
-          direction="left"
-          logoHeight={100}
-          gap={48}
-          pauseOnHover
-          fadeOut
-          fadeOutColor="#ffffff"
-          scaleOnHover
-          ariaLabel="Our trusted clients"
-        />
+        {/* Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {clients.map((client, i) => (
+            <ClientCard key={client.name} client={client} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   )
