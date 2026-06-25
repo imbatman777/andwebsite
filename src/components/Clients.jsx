@@ -22,7 +22,7 @@ function ClientCard({ client, index }) {
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay: index * 0.07, ease: 'easeOut' }}
-      className="group flex flex-col items-center justify-center p-10 bg-light-bg rounded-xl hover:bg-white hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 cursor-pointer text-center gap-4"
+      className="group flex flex-col items-center justify-center p-10 bg-light-bg rounded-xl hover:bg-white hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 cursor-pointer text-center gap-4 red-tint-hover"
     >
       <div className="w-20 h-20 flex items-center justify-center text-2xl font-extrabold text-light-text bg-white rounded-xl transition-all duration-300 tracking-tight group-hover:text-primary group-hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
         {client.initials}

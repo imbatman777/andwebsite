@@ -103,7 +103,7 @@ export default function Contact() {
               initial={{ opacity: 0, x: 20 }}
               animate={headerInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.35 }}
-              className="flex items-center gap-4 p-5 bg-white rounded-xl hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:translate-x-1 transition-all duration-300 no-underline"
+              className="flex items-center gap-4 p-5 bg-white rounded-xl hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:translate-x-1 transition-all duration-300 no-underline red-tint-hover"
             >
               <div className="w-12 h-12 min-w-12 bg-gradient-to-br from-[#25D366] to-[#128C7E] rounded-lg flex items-center justify-center text-white">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -124,7 +124,7 @@ export default function Contact() {
               initial={{ opacity: 0, x: 20 }}
               animate={headerInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.42 }}
-              className="flex items-center gap-4 p-5 bg-white rounded-xl hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:translate-x-1 transition-all duration-300 no-underline"
+              className="flex items-center gap-4 p-5 bg-white rounded-xl hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:translate-x-1 transition-all duration-300 no-underline red-tint-hover"
             >
               <div className="w-12 h-12 min-w-12 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -147,7 +147,7 @@ export default function Contact() {
               initial={{ opacity: 0, x: 20 }}
               animate={headerInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.49 }}
-              className="flex items-center gap-4 p-5 bg-white rounded-xl hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:translate-x-1 transition-all duration-300 no-underline"
+              className="flex items-center gap-4 p-5 bg-white rounded-xl hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:translate-x-1 transition-all duration-300 no-underline red-tint-hover"
             >
               <div className="w-12 h-12 min-w-12 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

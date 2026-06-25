@@ -1,34 +1,31 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 
-const features = [
+const carouselImages = [
   {
-    title: 'Professional Event Planning',
-    desc: 'Strategic planning from concept to completion with meticulous attention to every detail.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
-    ),
+    src: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
+    caption: 'Corporate Gala',
   },
   {
-    title: 'End-to-End Event Execution',
-    desc: 'Seamless management of vendors, logistics, and on-site coordination for flawless delivery.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-      </svg>
-    ),
+    src: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&q=80',
+    caption: 'Conference Stage',
   },
   {
-    title: 'Customized Experiences',
-    desc: 'Bespoke event solutions tailored to your brand identity and audience expectations.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-      </svg>
-    ),
+    src: 'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=600&q=80',
+    caption: 'Exhibition Setup',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80',
+    caption: 'Outdoor Festival',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&q=80',
+    caption: 'Networking Event',
+  },
+  {
+    src: '/hero-bg.jpg',
+    caption: 'Live Event Production',
   },
 ]
 
@@ -49,47 +46,134 @@ function AnimatedSection({ children, className, delay = 0 }) {
   )
 }
 
+function CompactCarousel() {
+  const [current, setCurrent] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const timerRef = useRef(null)
+
+  const goToNext = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % carouselImages.length)
+  }, [])
+
+  useEffect(() => {
+    if (!isHovered) {
+      timerRef.current = setInterval(goToNext, 7000)
+    }
+    return () => clearInterval(timerRef.current)
+  }, [isHovered, goToNext])
+
+  return (
+    <div
+      className="relative w-full rounded-xl overflow-hidden shadow-[0_4px_25px_rgba(0,0,0,0.1)] group/carousel"
+      style={{ aspectRatio: '4 / 3' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Images */}
+      {carouselImages.map((img, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 transition-all duration-700 ease-in-out"
+          style={{
+            opacity: i === current ? 1 : 0,
+            transform: i === current ? 'scale(1)' : 'scale(1.05)',
+          }}
+        >
+          <img
+            src={img.src}
+            alt={img.caption}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+        </div>
+      ))}
+
+      {/* Caption badge */}
+      <div className="absolute top-4 left-4 z-10">
+        <span className="px-3 py-1.5 bg-primary/90 backdrop-blur-sm text-white text-xs font-semibold tracking-wide rounded">
+          {carouselImages[current].caption}
+        </span>
+      </div>
+
+      {/* Arrow buttons — always visible */}
+      <button
+        onClick={() => setCurrent((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)}
+        className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-primary/80 transition-all duration-300 cursor-pointer z-10"
+        aria-label="Previous image"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button
+        onClick={() => setCurrent((prev) => (prev + 1) % carouselImages.length)}
+        className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-primary/80 transition-all duration-300 cursor-pointer z-10"
+        aria-label="Next image"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+
+      {/* Dots */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {carouselImages.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+              i === current
+                ? 'w-5 bg-white'
+                : 'w-1.5 bg-white/40 hover:bg-white/70'
+            }`}
+            aria-label={`Go to image ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function About() {
   return (
     <section id="about" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
-          {/* Left */}
-          <AnimatedSection>
-            <h2 className="font-serif text-[clamp(2rem,4vw,2.6rem)] font-bold text-dark leading-tight mb-5">
-              About AND Events Management
-            </h2>
-            <div className="w-14 h-[3px] bg-primary rounded-full" />
+        {/* Section heading */}
+        <AnimatedSection className="text-center mb-14">
+          <h2 className="font-serif text-[clamp(2rem,4vw,2.8rem)] font-bold text-dark tracking-tight mb-4">
+            <span className="text-primary">ABOUT</span> US
+          </h2>
+          <div className="w-14 h-[3px] bg-primary rounded-full mx-auto" />
+        </AnimatedSection>
+
+        {/* Two-column: Carousel left + Text right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left — Compact carousel */}
+          <AnimatedSection delay={0.1}>
+            <CompactCarousel />
           </AnimatedSection>
 
-          {/* Right */}
-          <div>
-            <AnimatedSection delay={0.15}>
-              <p className="text-[1.05rem] text-muted leading-[1.9] font-light mb-10">
-                AND Events Management LLC is a Dubai-based event planning and management
-                company specializing in creating memorable experiences for corporate and
-                private clients. From concept development to flawless execution, our team
-                handles every detail to ensure successful events that leave lasting
-                impressions.
-              </p>
-            </AnimatedSection>
-
-            <div className="flex flex-col gap-4">
-              {features.map((feature, i) => (
-                <AnimatedSection key={feature.title} delay={0.25 + i * 0.1}>
-                  <div className="flex items-start gap-4 p-5 bg-light-bg rounded-xl hover:bg-white hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300 group">
-                    <div className="w-12 h-12 min-w-12 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white">
-                      {feature.icon}
-                    </div>
-                    <div>
-                      <h4 className="text-base font-semibold text-dark mb-1">{feature.title}</h4>
-                      <p className="text-sm text-muted leading-relaxed">{feature.desc}</p>
-                    </div>
-                  </div>
-                </AnimatedSection>
-              ))}
-            </div>
-          </div>
+          {/* Right — About text */}
+          <AnimatedSection delay={0.2}>
+            <p className="text-[1.05rem] text-muted leading-[1.9] font-light mb-6">
+              <span className="font-semibold text-dark">AND Events Management LLC</span> transforms
+              celebrations into stories and moments into memories. We are a leading{' '}
+              <span className="font-semibold text-dark">event management company in Dubai</span>,
+              and we focus on creating events that inspire, engage, and connect.
+            </p>
+            <p className="text-[1.05rem] text-muted leading-[1.9] font-light mb-6">
+              It is our business to make your vision come true and make it look beautiful
+              and accurate, be it a gala dinner, a conference, an award ceremony, a product
+              launch event, or a team-building event.
+            </p>
+            <p className="text-[1.05rem] text-muted leading-[1.9] font-light">
+              Having years of experience and a creative touch, we established our name based
+              on creativity, quality, and emotion. We deal with each detail, from concept to
+              completion, venue choice, decoration, entertainment, and coordination — making
+              every moment light and fantastic.
+            </p>
+          </AnimatedSection>
         </div>
       </div>
     </section>
