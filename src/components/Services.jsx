@@ -57,7 +57,10 @@ function ServiceCard({ service, index }) {
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/80 group-hover:from-primary-dark/20 group-hover:via-primary-dark/30 group-hover:to-black/85 transition-all duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/80 group-hover:to-black/85 transition-all duration-500" />
+
+      {/* Inner red accent glow — bottom-left edge */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ boxShadow: 'inset 12px -12px 40px rgba(160, 0, 0, 0.55)' }} />
 
       {/* Arrow */}
       <div className="absolute top-5 right-5 w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300">
